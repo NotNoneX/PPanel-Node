@@ -141,6 +141,7 @@ func getInboundOptions(tag string, info *panel.NodeInfo, c *conf.Options) (optio
 				path = u.Path
 				ed, _ = strconv.Atoi(u.Query().Get("ed"))
 			}
+			t.Type = "ws"
 			t.WebsocketOptions = option.V2RayWebsocketOptions{
 				Path:                path,
 				EarlyDataHeaderName: "Sec-WebSocket-Protocol",
@@ -204,6 +205,7 @@ func getInboundOptions(tag string, info *panel.NodeInfo, c *conf.Options) (optio
 				path = u.Path
 				ed, _ = strconv.Atoi(u.Query().Get("ed"))
 			}
+			t.Type = "ws"
 			t.WebsocketOptions = option.V2RayWebsocketOptions{
 				Path:                path,
 				EarlyDataHeaderName: "Sec-WebSocket-Protocol",
@@ -294,6 +296,7 @@ func getInboundOptions(tag string, info *panel.NodeInfo, c *conf.Options) (optio
 				path = u.Path
 				ed, _ = strconv.Atoi(u.Query().Get("ed"))
 			}
+			t.Type = "ws"
 			t.WebsocketOptions = option.V2RayWebsocketOptions{
 				Path:                path,
 				EarlyDataHeaderName: "Sec-WebSocket-Protocol",
