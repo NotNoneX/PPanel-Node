@@ -777,7 +777,7 @@ show_menu() {
   ${green}9.${plain} 设置 PPanel-node 开机自启
   ${green}10.${plain} 取消 PPanel-node 开机自启
 ————————————————
-  ${green}11.${plain} 一键安装 bbr (最新内核)
+  ${green}11.${plain} 暂无功能
   ${green}12.${plain} 查看 PPanel-node 版本
   ${green}13.${plain} 生成 X25519 密钥
   ${green}14.${plain} 升级 PPanel-node 维护脚本
@@ -801,7 +801,7 @@ show_menu() {
         8) check_install && show_log ;;
         9) check_install && enable ;;
         10) check_install && disable ;;
-        11) install_bbr ;;
+        11) exit ;;
         12) check_install && show_PPanel-node_version ;;
         13) check_install && generate_x25519_key ;;
         14) update_shell ;;

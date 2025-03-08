@@ -1,6 +1,8 @@
 package panel
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -121,6 +123,12 @@ func (c *Client) GetNodeInfo() (node *NodeInfo, err error) {
 	if r.StatusCode() == 304 {
 		return nil, nil
 	}
+	hash := sha256.Sum256(r.Body())
+	newBodyHash := hex.EncodeToString(hash[:])
+	if c.responseBodyHash == newBodyHash {
+		return nil, nil
+	}
+	c.responseBodyHash = newBodyHash
 	c.nodeEtag = r.Header().Get("ETag")
 	if err = c.checkResponse(r, path, err); err != nil {
 		return nil, err
