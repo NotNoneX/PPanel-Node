@@ -36,12 +36,12 @@ type Limiter struct {
 	DomainRules   []*regexp.Regexp
 	ProtocolRules []string
 	SpeedLimit    int
-	UserOnlineIP  *sync.Map      // Key: Name, value: {Key: Ip, value: Uid}
+	UserOnlineIP  *sync.Map      // Key: TagUUID, value: {Key: Ip, value: Uid}
 	OldUserOnline *sync.Map      // Key: Ip, value: Uid
 	UUIDtoUID     map[string]int // Key: UUID, value: Uid
-	UserLimitInfo *sync.Map      // Key: Uid value: UserLimitInfo
-	ConnLimiter   *ConnLimiter   // Key: Uid value: ConnLimiter
-	SpeedLimiter  *sync.Map      // key: Uid, value: *ratelimit.Bucket
+	UserLimitInfo *sync.Map      // Key: TagUUID, value: UserLimitInfo
+	ConnLimiter   *ConnLimiter   // Key: TagUUID value: ConnLimiter
+	SpeedLimiter  *sync.Map      // key: TagUUID, value: *ratelimit.Bucket
 	AliveList     map[int]int    // Key: Uid, value: alive_ip
 }
 
@@ -105,6 +105,7 @@ func (l *Limiter) UpdateUser(tag string, added []panel.UserInfo, deleted []panel
 	for i := range deleted {
 		l.UserLimitInfo.Delete(format.UserTag(tag, deleted[i].Uuid))
 		l.UserOnlineIP.Delete(format.UserTag(tag, deleted[i].Uuid))
+		l.SpeedLimiter.Delete(format.UserTag(tag, deleted[i].Uuid))
 		delete(l.UUIDtoUID, deleted[i].Uuid)
 		delete(l.AliveList, deleted[i].Id)
 	}
