@@ -217,6 +217,12 @@ func buildVless(config *conf.Options, nodeInfo *panel.NodeInfo, inbound *coreCon
 			Host: v.TransportConfig.Host,
 			Path: v.TransportConfig.Path,
 		}
+	case "splithttp", "xhttp":
+		inbound.StreamSetting.SplitHTTPSettings = &coreConf.SplitHTTPConfig{
+			Host: v.TransportConfig.Host,
+			Path: v.TransportConfig.Path,
+			Mode: "auto",
+		}
 	default:
 		return errors.New("the network type is not vail")
 	}
@@ -252,6 +258,12 @@ func buildVmess(_ *conf.Options, nodeInfo *panel.NodeInfo, inbound *coreConf.Inb
 		inbound.StreamSetting.HTTPUPGRADESettings = &coreConf.HttpUpgradeConfig{
 			Host: v.TransportConfig.Host,
 			Path: v.TransportConfig.Path,
+		}
+	case "splithttp", "xhttp":
+		inbound.StreamSetting.SplitHTTPSettings = &coreConf.SplitHTTPConfig{
+			Host: v.TransportConfig.Host,
+			Path: v.TransportConfig.Path,
+			Mode: "auto",
 		}
 	default:
 		return errors.New("the network type is not vail")
